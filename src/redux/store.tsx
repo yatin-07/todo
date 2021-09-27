@@ -1,0 +1,24 @@
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
+import rootSaga from './rootSaga';
+import rootReducer from './rootReducer';
+import { StoreConfig } from './types';
+
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const sagaMiddleware = createSagaMiddleware();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// redux sagas is a middleware that we apply to the store
+export const configStore = (): StoreConfig => {
+  const store = createStore(rootReducer(), composeEnhancers(applyMiddleware(sagaMiddleware)));
+  sagaMiddleware.run(rootSaga);
+  return { store };
+};
