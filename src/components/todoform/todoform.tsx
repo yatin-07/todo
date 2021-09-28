@@ -11,32 +11,29 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
   const input = useRef<HTMLInputElement>(null);
 
   const renderList = (type: 'Complete' | 'Incomplete') => {
-      console.log(incomplete)
+    console.log(incomplete);
     const looper = type === 'Complete' ? complete : incomplete;
     return (
       <Container>
         <h1>{type}</h1>
         {looper.map((todo, index) => {
-            console.log('todo',todo);
+          console.log('todo', todo);
           return (
             <>
               <Card variant="outlined" style={{ marginTop: 35 }}>
                 <CardContent key={index}>
-                  
-                  <IconButton  onClick={() => {
-                        type === 'Complete' ? markIncomplete(todo) : markComplete(todo);
-                      }}>
-                    <Check
-                      style={{ color: 'green' }}
-                     
-                    />
-                    
-                  </IconButton >
+                  <IconButton
+                    onClick={() => {
+                      type === 'Complete' ? markIncomplete(todo) : markComplete(todo);
+                    }}
+                  >
+                    <Check style={{ color: 'green' }} />
+                  </IconButton>
                   <Typography variant="h5" component="h2">
                     {todo}
                   </Typography>
                   <IconButton style={{ float: 'right' }} onClick={() => deleteTodo(todo)}>
-                    <Delete style={{ color: 'red' }}  />
+                    <Delete style={{ color: 'red' }} />
                   </IconButton>
                 </CardContent>
               </Card>
@@ -51,14 +48,14 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
     if (input.current) {
       const val = input.current.value;
       input.current.value = '';
-      
+
       markIncomplete(val);
     }
   };
   return (
     <div>
       <Container maxWidth="sm">
-        <FormControl fullWidth={true} >
+        <FormControl fullWidth={true}>
           <TextField label="I will do this" inputRef={input} required={true} />
           <Button
             variant="contained"
