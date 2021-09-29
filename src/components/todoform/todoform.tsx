@@ -3,7 +3,7 @@ import { Button, FormControl, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { connect } from 'react-redux';
 import { Check, Delete } from '@mui/icons-material';
-import { Card, CardContent, Container, IconButton, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Container, IconButton, Typography } from '@mui/material';
 import { deleteTodo, markComplete, markIncomplete } from '../../redux/action';
 import AppPropType from '../../redux/types/proptypes';
 import storeType from '../../redux/types/storeType';
@@ -22,8 +22,6 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
             <>
               <Card variant="outlined" style={{ marginTop: 35 }}>
                 <CardContent key={index}>
-                  <Grid container spacing={3}>
-                    <Grid item xs>
                   <IconButton
                     onClick={() => {
                       type === 'Complete' ? markIncomplete(todo) : markComplete(todo);
@@ -31,18 +29,12 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
                   >
                     <Check style={{ color: 'green' }} />
                   </IconButton>
-                  </Grid>
-                  <Grid item xs>
-                  <Typography variant="h5" component="h2">
+                  <Typography variant="h5" component="h2" style={{ display: 'inline', marginLeft: 20 }}>
                     {todo}
                   </Typography>
-                  </Grid>
-                  <Grid item xs>
-                  <IconButton  onClick={() => deleteTodo(todo)}>
+                  <IconButton style={{ float: 'right' }} onClick={() => deleteTodo(todo)}>
                     <Delete style={{ color: 'red' }} />
                   </IconButton>
-                  </Grid>
-                  </Grid>
                 </CardContent>
               </Card>
             </>
@@ -62,7 +54,7 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
   };
   return (
     <div>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" style={{ marginTop: 20}}>
         <FormControl fullWidth={true}>
           <TextField label="I will do this" inputRef={input} required={true} />
           <Button
