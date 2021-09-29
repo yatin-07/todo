@@ -3,7 +3,7 @@ import { Button, FormControl, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { connect } from 'react-redux';
 import { Check, Delete } from '@mui/icons-material';
-import { Card, CardContent, Container, IconButton, Typography } from '@mui/material';
+import { Card, CardContent, Container, IconButton, Typography, Grid } from '@mui/material';
 import { deleteTodo, markComplete, markIncomplete } from '../../redux/action';
 import AppPropType from '../../redux/types/proptypes';
 import storeType from '../../redux/types/storeType';
@@ -12,16 +12,18 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
 
   const renderList = (type: 'Complete' | 'Incomplete') => {
     console.log(incomplete);
-    const looper = type === 'Complete' ? complete : incomplete;
+    const loop = type === 'Complete' ? complete : incomplete;
     return (
       <Container>
         <h1>{type}</h1>
-        {looper.map((todo, index) => {
+        {loop.map((todo, index) => {
           console.log('todo', todo);
           return (
             <>
               <Card variant="outlined" style={{ marginTop: 35 }}>
                 <CardContent key={index}>
+                  <Grid container spacing={3}>
+                    <Grid item xs>
                   <IconButton
                     onClick={() => {
                       type === 'Complete' ? markIncomplete(todo) : markComplete(todo);
@@ -29,12 +31,18 @@ const Todo: React.FC<AppPropType> = ({ complete, incomplete, deleteTodo, markCom
                   >
                     <Check style={{ color: 'green' }} />
                   </IconButton>
+                  </Grid>
+                  <Grid item xs>
                   <Typography variant="h5" component="h2">
                     {todo}
                   </Typography>
-                  <IconButton style={{ float: 'right' }} onClick={() => deleteTodo(todo)}>
+                  </Grid>
+                  <Grid item xs>
+                  <IconButton  onClick={() => deleteTodo(todo)}>
                     <Delete style={{ color: 'red' }} />
                   </IconButton>
+                  </Grid>
+                  </Grid>
                 </CardContent>
               </Card>
             </>
